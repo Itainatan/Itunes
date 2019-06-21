@@ -10,12 +10,11 @@ class App extends Component {
   }
   componentDidMount() {
     axios
-      .get("http://localhost:5000")
+      .get("/api")
       .then(res => {
-        console.log(res);
         this.setState({ server_respond: res.data });
       })
-      .catch(err => console.log("error respond"));
+      .catch(err => this.setState({ server_respond: "error respond" }));
   }
   render() {
     return <h1>{this.state.server_respond}</h1>;

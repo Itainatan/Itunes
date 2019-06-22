@@ -1,16 +1,27 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const bodyparser = require("body-parser");
 const path = require("path");
 const app = express();
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
+//Body parser middleware
+app.use(express.json({ extended: false }));
+//DB Config
+const db = require("./config/keys").mongoURI;
+//Connect to MongoDB
+
+const connectDB = async () => {
+  try {
+    await mongoose.connect(db, { useNewUrlParser: true });
+    console.log("connected to MongoDB");
+  } catch (err) {
+    console.log(err.message);
+    process.exit(1);
+  }
+};
+
+connectDB();
+
 app.get("/api", (req, res) => res.send("respnde success from server"));
 
 //Server static assets if in production

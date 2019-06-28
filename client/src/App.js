@@ -9,15 +9,17 @@ class App extends Component {
     };
   }
   componentDidMount() {
-    axios
-      .post("/api/users/current", { email: "rannn03@walla.co.il" })
-      .then(res => {
-        console.log(res);
-        this.setState({ server_respond: res.data.name });
-      })
-      .catch(err => {
-        // this.setState({ server_respond: err });
-      });
+    setTimeout(() => {
+      axios
+        .post("/api/users/current", { email: "rannn03@walla.co.il" })
+        .then(res => {
+          console.log(res);
+          this.setState({ server_respond: res.data.name });
+        })
+        .catch(err => {
+          // this.setState({ server_respond: err });
+        });
+    }, 3000);
   }
   render() {
     return <h1>{this.state.server_respond}</h1>;

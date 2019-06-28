@@ -9,29 +9,11 @@ const app = express();
 connectDB();
 //Body parser middleware
 app.use(express.json({ extended: false }));
-// DB Config
-// const db = require("./config/keys").mongoURI;
-// Connect to MongoDB
-
-// const connectDB = async () => {
-//   try {
-//     await mongoose.connect(db, {
-//       useNewUrlParser: true,
-//       useCreateIndex: true
-//     });
-
-//     console.log("connected to MongoDB");
-//   } catch (err) {
-//     console.log(err.message);
-//     // process.exit(1);
-//   }
-// };
 
 connectDB();
 
 //Use Routes
 app.use("/api/users", users);
-// app.get("/api", (req, res) => res.send("respnde success from server"));
 
 //Server static assets if in production
 if (process.env.NODE_ENV === "production") {

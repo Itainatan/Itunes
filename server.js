@@ -1,5 +1,5 @@
 const express = require("express");
-// const mongoose = require("mongoose");
+const mongoose = require("mongoose");
 // const bodyparser = require("body-parser");
 const path = require("path");
 const app = express();
@@ -7,28 +7,25 @@ const users = require("./config/routes/api/users");
 
 //Body parser middleware
 app.use(express.json({ extended: false }));
-//DB Config
-// const db = require("./config/keys").mongoURI;
-//Connect to MongoDB
+// DB Config
+const db = require("./config/keys").mongoURI;
+// Connect to MongoDB
 
-// const connectDB = async () => {
-//   try {
-//     await mongoose.connect(db, {
-//       useNewUrlParser: true,
-//       useCreateIndex: true
-//     });
+const connectDB = async () => {
+  try {
+    await mongoose.connect(db, {
+      useNewUrlParser: true,
+      useCreateIndex: true
+    });
 
-//     console.log("connected to MongoDB");
-//   } catch (err) {
-//     console.log(err.message);
-//     console.log(
-//       "********************************************************************"
-//     );
-//     // process.exit(1);
-//   }
-// };
+    console.log("connected to MongoDB");
+  } catch (err) {
+    console.log(err.message);
+    // process.exit(1);
+  }
+};
 
-// connectDB();
+connectDB();
 
 //Use Routes
 app.use("/api/users", users);

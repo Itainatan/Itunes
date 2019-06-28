@@ -8,7 +8,7 @@ const User = require("../../models/user");
 router.post("/current", async (req, res) => {
   const { email } = req.body;
   // console.log(User);
-  // let user = await User.findOne({ email });
+  let user = await User.findOne({ email });
   // console.log(user);
   // if (!user) {
   //   const error = "User not found";

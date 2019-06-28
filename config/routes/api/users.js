@@ -7,9 +7,9 @@ const User = require("../../models/user");
 //@route POST api/users/current
 router.post("/current", async (req, res) => {
   const { email } = req.body;
-  console.log(User);
-  // let user = await User.findOne({ email });
-  // console.log(user);
+  // console.log(User);
+  let user = await User.findOne({ email });
+  console.log(user);
   // if (!user) {
   //   const error = "User not found";
   //   return res.json(error);

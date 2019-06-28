@@ -13,14 +13,14 @@ class App extends Component {
       .post("/api/users/current", { email: "rannn03@walla.co.il" })
       .then(res => {
         console.log(res);
-        this.setState({ server_respond: res.data });
+        this.setState({ server_respond: res.data.name });
       })
       .catch(err => {
         // this.setState({ server_respond: err });
       });
   }
   render() {
-    return <h1>{this.state.server_respond}ddd</h1>;
+    return <h1>{this.state.server_respond}</h1>;
   }
 }
 

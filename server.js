@@ -3,7 +3,7 @@ const express = require("express");
 // const bodyparser = require("body-parser");
 const path = require("path");
 const app = express();
-const users = require("./config/routes/api/users");
+// const users = require("./config/routes/api/users");
 
 //Body parser middleware
 app.use(express.json({ extended: false }));

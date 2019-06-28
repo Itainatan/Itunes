@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+// import axios from "axios";
 
 class App extends Component {
   constructor() {
@@ -19,7 +19,7 @@ class App extends Component {
     //   });
   }
   render() {
-    return <h1>{JSON.stringify(this.state.server_respond)}</h1>;
+    return <h1>sssssssssssssssssss</h1>;
   }
 }
 

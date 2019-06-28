@@ -2,12 +2,12 @@ const express = require("express");
 const router = express.Router();
 
 // Load User model
-const User = require("../../models/User");
+// const User = require("../../models/User");
 
 //@route POST api/users/current
 router.post("/current", async (req, res) => {
   // const { email } = req.body;
-  console.log(User);
+  // console.log(User);
   // let user = await User.findOne({ email });
   // console.log(user);
   // if (!user) {

@@ -31,7 +31,7 @@ app.use(express.json({ extended: false }));
 // connectDB();
 
 //Use Routes
-app.use("/api/users", users);
+// app.use("/api/users", users);
 app.get("/api", (req, res) => res.send("respnde success from server"));
 
 //Server static assets if in production

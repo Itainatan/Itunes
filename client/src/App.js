@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import axios from "axios";
+import axios from "axios";
 
 class App extends Component {
   constructor() {
@@ -9,17 +9,18 @@ class App extends Component {
     };
   }
   componentDidMount() {
-    // axios
-    //   .post("/api/users/current", { email: "rannn03@walla.co.il" })
-    //   .then(res => {
-    //     this.setState({ server_respond: res.data });
-    //   })
-    //   .catch(err => {
-    //     this.setState({ server_respond: err });
-    //   });
+    axios
+      .get("/api")
+      .then(res => {
+        console.log(res);
+        this.setState({ server_respond: res.data });
+      })
+      .catch(err => {
+        this.setState({ server_respond: err });
+      });
   }
   render() {
-    return <h1>sssssssssssssssssss</h1>;
+    return <h1>{this.state.server_respond}</h1>;
   }
 }
 

@@ -1,9 +1,9 @@
 const express = require("express");
-const mongoose = require("mongoose");
-const bodyparser = require("body-parser");
+// const mongoose = require("mongoose");
+// const bodyparser = require("body-parser");
 const path = require("path");
 const app = express();
-const users = require("./config/routes/api/users");
+// const users = require("./config/routes/api/users");
 
 //Body parser middleware
 app.use(express.json({ extended: false }));
@@ -31,7 +31,7 @@ app.use(express.json({ extended: false }));
 // connectDB();
 
 //Use Routes
-app.use("/api/users", users);
+// app.use("/api/users", users);
 app.get("/api", (req, res) => res.send("respnde success from server"));
 
 //Server static assets if in production

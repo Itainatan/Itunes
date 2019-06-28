@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const bodyparser = require("body-parser");
 const path = require("path");
 const app = express();
+const users = require("./config/routes/api/users");
 
 //Body parser middleware
 app.use(express.json({ extended: false }));
@@ -12,7 +13,11 @@ const db = require("./config/keys").mongoURI;
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(db, { useNewUrlParser: true });
+    await mongoose.connect(db, {
+      useNewUrlParser: true,
+      useCreateIndex: true
+    });
+
     console.log("connected to MongoDB");
   } catch (err) {
     console.log(err.message);
@@ -22,6 +27,8 @@ const connectDB = async () => {
 
 connectDB();
 
+//Use Routes
+app.use("/api/users", users);
 app.get("/api", (req, res) => res.send("respnde success from server"));
 
 //Server static assets if in production

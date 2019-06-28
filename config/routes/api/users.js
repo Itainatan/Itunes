@@ -8,12 +8,11 @@ const User = require("../../models/user");
 router.post("/current", async (req, res) => {
   const { email } = req.body;
   let user = await User.findOne({ email });
-  // if (!user) {
-  //   const error = "User not found";
-  //   return res.json(error);
-  // }
-  // return res.json(user);
-  return res.send("respnde success from server");
+  if (!user) {
+    const error = "User not found";
+    return res.status(404).json({ error: "User not found" });
+  }
+  return res.json(user);
 });
 
 module.exports = router;

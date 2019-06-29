@@ -24,7 +24,12 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div>
-          <Route path="/dashboard" component={Dashboard} />
+          <Route
+            path="/"
+            component={() => <h1>{this.state.server_respond}</h1>}
+            exact
+          />
+          <Route path="/dashboard" component={Dashboard} exact />
         </div>
       </BrowserRouter>
     );

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
-
+import { BrowserRouter, Route } from "react-router-dom";
+import Dashboard from "./components/dashbaord";
 class App extends Component {
   constructor() {
     super();
@@ -19,7 +20,14 @@ class App extends Component {
       });
   }
   render() {
-    return <h1>{this.state.server_respond}</h1>;
+    // return <h1>{this.state.server_respond}</h1>;
+    return (
+      <BrowserRouter>
+        <div>
+          <Route path="/dashboard" component={Dashboard} />
+        </div>
+      </BrowserRouter>
+    );
   }
 }
 

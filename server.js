@@ -1,8 +1,7 @@
 const express = require("express");
-// const mongoose = require("mongoose");
-// const bodyparser = require("body-parser");
 const path = require("path");
 const users = require("./config/routes/api/users");
+const authes = require("./config/routes/api/authes");
 const connectDB = require("./config/db");
 
 const app = express();
@@ -10,10 +9,9 @@ connectDB();
 //Body parser middleware
 app.use(express.json({ extended: false }));
 
-connectDB();
-
 //Use Routes
 app.use("/api/users", users);
+app.use("/api/auth", authes);
 
 //Server static assets if in production
 if (process.env.NODE_ENV === "production") {

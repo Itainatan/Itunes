@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import axios from "axios";
 import { BrowserRouter, Route } from "react-router-dom";
 import Dashboard from "./components/dashbaord";
+import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
+import { Link, withRouter } from "react-router-dom";
+
 class App extends Component {
   constructor() {
     super();
@@ -22,16 +25,25 @@ class App extends Component {
   render() {
     // return <h1>{this.state.server_respond}</h1>;
     return (
-      <BrowserRouter>
-        <div>
-          <Route
-            path="/"
-            component={() => <h1>{this.state.server_respond}</h1>}
-            exact
-          />
-          <Route path="/dashboard" component={Dashboard} exact />
-        </div>
-      </BrowserRouter>
+      <GoogleReCaptchaProvider reCaptchaKey="6LepYasUAAAAADZGCIAP3VXc5l07KyZJZak-R3FQ">
+        <BrowserRouter>
+          <div>
+            <Route
+              path="/"
+              component={() => (
+                <div>
+                  <Link to="/dashboard" className="btn btn-light">
+                    Dashboard
+                  </Link>
+                  <h1>Welcome {this.state.server_respond}</h1>
+                </div>
+              )}
+              exact
+            />
+            <Route path="/dashboard" component={Dashboard} exact />
+          </div>
+        </BrowserRouter>
+      </GoogleReCaptchaProvider>
     );
   }
 }

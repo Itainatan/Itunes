@@ -3,7 +3,7 @@ import axios from "axios";
 import { BrowserRouter, Route } from "react-router-dom";
 import Dashboard from "./components/dashbaord";
 import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class App extends Component {
   constructor() {

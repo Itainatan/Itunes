@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { withGoogleReCaptcha } from "react-google-recaptcha-v3";
 import axios from "axios";
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class Dashboard extends Component {
   async componentDidMount() {

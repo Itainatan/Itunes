@@ -1,7 +1,6 @@
 const express = require("express");
 const path = require("path");
-const users = require("./config/routes/api/users");
-const authes = require("./config/routes/api/authes");
+const users = require("./routes/api/users");
 const connectDB = require("./config/db");
 
 const app = express();
@@ -11,7 +10,6 @@ app.use(express.json({ extended: false }));
 
 //Use Routes
 app.use("/api/users", users);
-app.use("/api/auth", authes);
 
 //Server static assets if in production
 if (process.env.NODE_ENV === "production") {

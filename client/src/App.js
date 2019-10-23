@@ -103,9 +103,6 @@ class App extends React.Component {
         <div className="row">
           <div className="col-md-6 offset-md-3 col-sm-12">
             <h1 className="text-center">Chat With Your Friends</h1>
-            <div id="status" style={{ color: "green" }}>
-              {this.state.status}
-            </div>
             <div id="chat">
               <input
                 type="text"
@@ -125,6 +122,17 @@ class App extends React.Component {
                 }}
               >
                 {this.state.writingStatus}
+              </div>
+              <div
+                id="status"
+                style={{
+                  color: "green",
+                  textAlign: "center",
+                  marginTop: 20,
+                  fontSize: 20
+                }}
+              >
+                {this.state.status}
               </div>
               <br />
               <div className="card" style={{ padding: 10 }}>

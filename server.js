@@ -66,14 +66,22 @@ mongoose.connect(
         }
       });
 
-      // Handle clear
-      socket.on("clear", function(data) {
-        // Remove all chats from collection
-        chat.remove({}, function() {
-          // Emit cleared
-          socket.emit("cleared");
-        });
+      socket.on("writing", function(data) {
+        console.log(data);
+        if (data.messageLength !== 0)
+          socket.broadcast.emit("writing", `${data.username} is writing...`);
+        else {
+          socket.broadcast.emit("stoppedWriting");
+        }
       });
+      // // Handle clear
+      // socket.on("clear", function(data) {
+      //   // Remove all chats from collection
+      //   chat.remove({}, function() {
+      //     // Emit cleared
+      //     socket.emit("cleared");
+      //   });
+      // });
     });
 
     //Server static assets if in production

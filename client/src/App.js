@@ -1,46 +1,131 @@
-import React, { Component } from "react";
-import axios from "axios";
-import { BrowserRouter, Route } from "react-router-dom";
-import Dashboard from "./components/dashbaord";
-import { Link } from "react-router-dom";
+import React from "react";
+import "./App.css";
+import io from "socket.io-client";
 
-class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      server_respond: "NO_server_respond"
-    };
-  }
+class App extends React.Component {
+  state = {
+    messages: [],
+    username: "",
+    message: "",
+    socket: undefined,
+    status: ""
+  };
   componentDidMount() {
-    axios
-      .post("/api/users/current", { email: "rannn03@walla.co.il" })
-      .then(res => {
-        this.setState({ server_respond: res.data.name });
-      })
-      .catch(err => {
-        this.setState({ server_respond: err.response.data.error });
+    // Connect to socket.io
+    const socket = io.connect("http://127.0.0.1:5000");
+    if (socket !== undefined) {
+      this.setState({ socket }, () => {
+        console.log("Connected to socket...");
+
+        // Handle Output
+        this.state.socket.on("output", data => {
+          if (data.length) {
+            this.setState({ messages: [...this.state.messages, ...data] }, () =>
+              this.showMessage()
+            );
+          }
+        });
+        // Get Status From Server
+        this.state.socket.on("status", data => {
+          // get message status
+          this.setState({ status: data.message });
+          // If status is clear, clear text
+          setTimeout(() => {
+            if (data.clear) {
+              this.setState({ status: "" });
+            }
+          }, 2000);
+        });
+
+        this.state.socket.on("cleared", data => {
+          this.setState({ messages: [] });
+        });
       });
+    }
   }
+  showMessage = () => {
+    if (this.state.messages.length) {
+      return this.state.messages.map((message, index) => {
+        return (
+          <div key={index}>
+            {message.name}: {message.message}
+          </div>
+        );
+      });
+    } else {
+      return null;
+    }
+  };
+
+  handleInput = e => {
+    this.setState({ username: e.target.value });
+  };
+
+  handleTextArea = e => {
+    this.setState({ message: e.target.value });
+  };
+
+  handleSubmit = e => {
+    this.state.socket.emit("input", {
+      name: this.state.username,
+      message: this.state.message
+    });
+    this.setState({ username: "", message: "" });
+  };
+
+  handleClear = e => {
+    this.state.socket.emit("clear");
+  };
   render() {
-    // return <h1>{this.state.server_respond}</h1>;
     return (
-      <BrowserRouter>
-        <div>
-          <Route
-            path="/"
-            component={() => (
-              <div>
-                <Link to="/dashboard" className="btn btn-light">
-                  Dashboard
-                  </Link>
-                <h1>Welcome {this.state.server_respond}</h1>
+      <div className="container">
+        <div className="row">
+          <div className="col-md-6 offset-md-3 col-sm-12">
+            <h1 className="text-center">
+              Chat Pool
+              <button
+                id="clear"
+                className="btn btn-danger"
+                onClick={this.handleClear}
+              >
+                Clear
+              </button>
+            </h1>
+            <div id="status">{this.state.status}</div>
+            <div id="chat">
+              <input
+                type="text"
+                id="username"
+                className="form-control"
+                placeholder="Enter name..."
+                onChange={this.handleInput}
+                value={this.state.username}
+              />
+              <br />
+              <div className="card">
+                <div
+                  id="messages"
+                  style={{ height: 200 }}
+                  className="card-block"
+                >
+                  {this.showMessage()}
+                </div>
               </div>
-            )}
-            exact
-          />
-          <Route path="/dashboard" component={Dashboard} exact />
+              <br />
+              <textarea
+                id="textarea"
+                className="form-control"
+                placeholder="Enter message..."
+                onChange={this.handleTextArea}
+                value={this.state.message}
+              ></textarea>
+              <button onClick={this.handleSubmit} className="btn btn-primary">
+                Send
+              </button>
+            </div>
+          </div>
         </div>
-      </BrowserRouter>
+      </div>
     );
   }
 }

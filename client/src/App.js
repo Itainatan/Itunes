@@ -12,7 +12,7 @@ class App extends React.Component {
   };
   componentDidMount() {
     // Connect to socket.io
-    const socket = io.connect("http://127.0.0.1:5000");
+    const socket = io.connect("/");
     if (socket !== undefined) {
       this.setState({ socket }, () => {
         console.log("Connected to socket...");

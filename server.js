@@ -4,6 +4,7 @@ var http = require("http").Server(app);
 var client = require("socket.io")(http);
 const path = require("path");
 const mongoose = require("mongoose");
+const keys = require("./config/keys/keys");
 
 // const users = require("./routes/api/users");
 //Use Routes
@@ -11,7 +12,11 @@ const mongoose = require("mongoose");
 
 // Connect to mongo
 mongoose.connect(
-  "mongodb+srv://ranchuk:ranchuk@cluster0-aysjk.mongodb.net/test?retryWrites=true&w=majority",
+  keys.mongoURI,
+  {
+    useNewUrlParser: true,
+    useCreateIndex: true
+  },
   function(err, db) {
     if (err) {
       throw err;

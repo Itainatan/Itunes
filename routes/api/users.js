@@ -1,18 +1,34 @@
-// const express = require("express");
-// const router = express.Router();
+const express = require("express");
+const router = express.Router();
 
-// // Load User model
-// const User = require("../../config/models/user");
+// Load User model
+const User = require("../../config/models/user");
+const Chat = require("../../config/models/chat");
 
-// //@route POST api/users/current
-// router.post("/current", async (req, res) => {
-//   const { email } = req.body;
-//   let user = await User.findOne({ email });
-//   if (!user) {
-//     const error = "User not found";
-//     return res.status(404).json({ error: "User not found" });
-//   }
-//   return res.json(user);
-// });
+router.post("/login", (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
 
-// module.exports = router;
+  //Find user by email
+  User.findOne({ username: username })
+    .then(user => {
+      // Check for user
+      if (!user || user.password !== password) {
+        return res.status(404).json("User not found");
+      }
+      Chat.find({
+        $or: [{ username1: username }, { username2: username }]
+      })
+        .then(chats => {
+          res.json({ success: true, chats: chats });
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    })
+    .catch(err => {
+      console.error(err);
+    });
+});
+
+module.exports = router;

@@ -37,14 +37,9 @@ mongoose.connect(
         console.log(data);
 
         if (client.sockets.adapter.rooms[data.reciever]) {
-          client.to(data.sender).emit("FromServer", data);
-        } else if (client.sockets.adapter.rooms[data.sender]) {
-          client.to(data.sender).emit("FromServer", data);
-        } else if (
-          client.sockets.adapter.rooms[data.reciever] &&
-          client.sockets.adapter.rooms[data.sender]
-        ) {
           client.to(data.reciever).emit("FromServer", data);
+        }
+        if (client.sockets.adapter.rooms[data.sender]) {
           client.to(data.sender).emit("FromServer", data);
         }
       });

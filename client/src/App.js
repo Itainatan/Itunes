@@ -1,10 +1,31 @@
-import React, { useReducer } from "react";
+import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import ChatsList from "./components/ChatsList";
-import Chat from "./components/Chat";
 import Login from "./components/Login";
+import { createStore, applyMiddleware, compose } from "redux";
+import { Provider, useSelector, useDispatch } from "react-redux";
+import thunk from "redux-thunk";
+const initialState = {
+  username: "",
+  chats: [],
+  chatInView: {},
+  socket: ""
+};
+const middleware = [thunk];
 
-function appReducer(state = {}, action) {
+const store = createStore(
+  appReducer,
+  initialState,
+  compose(
+    applyMiddleware(...middleware),
+    window.__REDUX_DEVTOOLS_EXTENSION__
+      ? window.__REDUX_DEVTOOLS_EXTENSION__ &&
+          window.__REDUX_DEVTOOLS_EXTENSION__()
+      : f => f
+  )
+);
+
+function appReducer(state = initialState, action) {
   switch (action.type) {
     case "Login": {
       return {
@@ -14,6 +35,15 @@ function appReducer(state = {}, action) {
         socket: action.payload.socket
       };
     }
+    case "AddMessage": {
+      return { ...state, chats: action.payload };
+    }
+    case "ChatInView": {
+      return { ...state, chatInView: action.payload };
+    }
+    case "AddSocket": {
+      return { ...state, socket: action.payload };
+    }
     default: {
       return state;
     }
@@ -22,18 +52,15 @@ function appReducer(state = {}, action) {
 export const Context = React.createContext();
 
 const App = () => {
-  const [state, dispatch] = useReducer(appReducer, {});
-
   return (
-    <Context.Provider value={[state, dispatch]}>
+    <Provider store={store}>
       <Router>
         <div className="App">
           <Route exact path="/" component={Login} />
           <Route exact path="/chats" component={ChatsList} />
-          {/**<Route exact path="/chat/:id" component={Chat} />**/}
         </div>
       </Router>
-    </Context.Provider>
+    </Provider>
   );
 };
 

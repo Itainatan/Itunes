@@ -6,7 +6,7 @@ import io from "socket.io-client";
 const Login = props => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [state, dispatch] = useContext(Context);
+  // const [state, dispatch] = useContext(Context);
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -19,15 +19,15 @@ const Login = props => {
       const socket = io.connect("/");
       if (socket !== undefined) {
         socket.emit("join", username);
-        dispatch({
-          type: "Login",
-          payload: {
-            username: username,
-            token: 0,
-            chats: res.data.chats,
-            socket: socket
-          }
-        });
+        // dispatch({
+        //   type: "Login",
+        //   payload: {
+        //     username: username,
+        //     token: 0,
+        //     chats: res.data.chats,
+        //     socket: socket
+        //   }
+        // });
         props.history.push("/chats");
       }
     }

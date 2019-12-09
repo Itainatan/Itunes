@@ -28,7 +28,7 @@ class Login extends Component {
   };
 
   makeSignIn = () => {
-    this.setState({ signIn: true });
+    this.setState({ signIn: !this.state.signIn });
   };
 
   handleSignIn = async e => {
@@ -61,7 +61,7 @@ class Login extends Component {
           ></input>
           <button type="submit">Log in</button>
         </form>
-        <div>
+        <div className="signIn">
           <a onClick={this.makeSignIn}>sign in for new user</a>
         </div>
 

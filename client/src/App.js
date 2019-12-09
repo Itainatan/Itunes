@@ -1,9 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import ChatsList from "./components/ChatsList";
+import Itunes from "./components/Itunes";
 import Login from "./components/Login";
+import Song from "./components/Song";
 import { createStore, applyMiddleware, compose } from "redux";
-import { Provider, useSelector, useDispatch } from "react-redux";
+import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 const initialState = {
   username: "",
@@ -57,7 +58,12 @@ const App = () => {
       <Router>
         <div className="App">
           <Route exact path="/" component={Login} />
-          <Route exact path="/chats" component={ChatsList} />
+          <Route exact path="/itunes" component={Itunes} />
+          <Route
+            exact
+            path="/itunes/:id"
+            render={props => <Song {...props} />}
+          />
         </div>
       </Router>
     </Provider>

@@ -14,7 +14,7 @@ const users = require("./routes/api/users");
 // Use Routes
 app.use("/api/users", users);
 
-// // Connect to mongo
+// Connect to mongo
 mongoose.connect(
   keys.mongoURI,
   {

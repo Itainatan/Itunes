@@ -32,6 +32,7 @@ class Login extends Component {
   };
 
   handlesignUp = async e => {
+    e.preventDefault();
     const res = await axios.post("/api/users/signUp", {
       username: this.state.usersignUp,
       password: this.state.passwordsignUp,

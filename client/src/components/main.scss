@@ -1,0 +1,27 @@
+.signUp {
+  margin: 20px;
+  width: 195px;
+  color: blue;
+  font-family: helvetica;
+  text-decoration: none;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.signUp:hover {
+  text-decoration: underline;
+}
+
+.signUp:active {
+  color: black;
+}
+
+.song {
+  padding: 5px;
+  margin: 5px;
+  border: 1px solid black;
+  font-family: helvetica;
+  text-decoration: none;
+  text-transform: uppercase;
+  cursor: pointer;
+}

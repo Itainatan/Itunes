@@ -21,11 +21,10 @@ mongoose.connect(
     useNewUrlParser: true,
     useCreateIndex: true
   },
-  function(err, db) {
+  function(err) {
     if (err) {
       throw err;
     }
-    
 
     //Server static assets if in production
     if (process.env.NODE_ENV === "production") {

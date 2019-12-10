@@ -22,6 +22,7 @@ class Login extends Component {
       password: this.state.password
     });
     if (res.status === 200) {
+      sessionStorage.setItem('user', JSON.stringify({email: this.state.email}))
       this.props.history.push("/itunes");
     }
     //after login, redirect to contacts page

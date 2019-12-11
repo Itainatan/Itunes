@@ -15,7 +15,7 @@ const App = () => {
         <Route exact path="/" component={Login} />
         {/* <Route exact path="/itunes" component={Itunes} /> */}
         <SecureRoute path="/itunes" component={Itunes} />
-        <SecureRoute exact path="/itunes/:id" render={props => <Song {...props} />} />
+        <SecureRoute path="/itunes/:id" render={props => <Song {...props} />} />
       </div>
     </Router>
   );

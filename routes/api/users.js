@@ -8,15 +8,12 @@ const User = require("../../config/models/user");
 router.post("/login", (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
-  // res.status(200).json({ email });
-  // Find user by user name
   User.findOne({ email: email })
     .then(user => {
-      // Check for user
       if (!user || user.password !== password) {
         return res.status(404).json("User not found");
       }
-      else res.json({ success: true, user });
+      else res.status(200).json({ success: true, user });
     })
     .catch(err => {
       console.error(err);
@@ -28,21 +25,20 @@ router.post("/signUp", (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
   const email = req.body.email;
-  res.status(200).json({ username });
-  //Find user by email
   User.findOne({ email: email })
     .then(user => {
-      // Check for user
-      if (!user) {
+      if (user !== null) {
+        return res.status(404).json("User already exist");
+      }
+      else {
         const newUser = {
           username,
           password,
           email
         }
-        User.collection.insert(newUser);
+        User.collection.insertOne(newUser);
         return res.json({ success: true, newUser });
       }
-      else res.status(404).json("User already exist");
     })
     .catch(err => {
       console.error(err);

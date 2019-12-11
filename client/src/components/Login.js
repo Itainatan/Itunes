@@ -16,7 +16,6 @@ class Login extends Component {
 
   handleSubmit = async e => {
     e.preventDefault();
-    // submit login credentials
     const res = await axios.post("/api/users/login", {
       email: this.state.email,
       password: this.state.password
@@ -25,7 +24,6 @@ class Login extends Component {
       sessionStorage.setItem('user', JSON.stringify({email: this.state.email}))
       this.props.history.push("/itunes");
     }
-    //after login, redirect to contacts page
   };
 
   makesignUp = () => {
@@ -71,7 +69,7 @@ class Login extends Component {
           </button>
         </form>
         <div className="signUp">
-          <a href="/#" onClick={this.makesignUp}>sign up for new user</a>
+          <a href="/#" onClick={this.makesignUp}>sign up for new user!</a>
         </div>
 
         {this.state.signUp && (

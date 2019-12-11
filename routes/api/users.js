@@ -9,7 +9,7 @@ router.post("/login", (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
   // res.status(200).json({ email });
-  //Find user by user name
+  // Find user by user name
   User.findOne({ email: email })
     .then(user => {
       // Check for user
@@ -23,7 +23,7 @@ router.post("/login", (req, res) => {
     });
 });
 
-//for SignUp
+// for SignUp
 router.post("/signUp", (req, res) => {
   const username = req.body.username;
   const password = req.body.password;

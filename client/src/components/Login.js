@@ -57,7 +57,6 @@ class Login extends Component {
             onChange={e => this.setState({ email: e.target.value })}
             value={this.state.email}
             className="form-control"
-            type="email"
           ></input>
           <input
             style={{ margin: "20px" }}
@@ -72,7 +71,7 @@ class Login extends Component {
           </button>
         </form>
         <div className="signUp">
-          <a onClick={this.makesignUp}>sign up for new user</a>
+          <a href="/#" onClick={this.makesignUp}>sign up for new user</a>
         </div>
 
         {this.state.signUp && (
@@ -85,7 +84,6 @@ class Login extends Component {
                 onChange={e => this.setState({ emailsignUp: e.target.value })}
                 value={this.state.emailsignUp}
                 className="form-control"
-                type="email"
               ></input>
               <label style={{ marginTop: "5px" }}> enter User name</label>
               <input

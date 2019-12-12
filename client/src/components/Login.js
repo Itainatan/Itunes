@@ -5,6 +5,8 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      error: false,
+      errorMessage: "",
       email: "",
       password: "",
       signUp: false,
@@ -16,14 +18,20 @@ class Login extends Component {
 
   handleSubmit = async e => {
     e.preventDefault();
-    const res = await axios.post("/api/users/login", {
-      email: this.state.email,
-      password: this.state.password
-    });
-    if (res.status === 200) {
-      sessionStorage.setItem('user', JSON.stringify({email: this.state.email}))
-      this.props.history.push("/itunes");
+    if (this.state.email !== "" && this.state.password !== "") {
+      const res = await axios.post("/api/users/login", {
+        email: this.state.email,
+        password: this.state.password
+      }).catch(err => {
+        console.log(err)
+        this.setState({ error: true, errorMessage: "user not found!" })
+      });
+      if (res && res.status === 200) {
+        sessionStorage.setItem('user', JSON.stringify({ email: this.state.email }))
+        this.props.history.push("/itunes");
+      }
     }
+    else this.setState({ error: true, errorMessage: "please fill the all fields" })
   };
 
   makesignUp = () => {
@@ -52,14 +60,14 @@ class Login extends Component {
           <input
             style={{ margin: "20px" }}
             placeholder="Enter email address"
-            onChange={e => this.setState({ email: e.target.value })}
+            onChange={e => this.setState({ email: e.target.value, error: false })}
             value={this.state.email}
             className="form-control"
           ></input>
           <input
             style={{ margin: "20px" }}
             placeholder="Enter password"
-            onChange={e => this.setState({ password: e.target.value })}
+            onChange={e => this.setState({ password: e.target.value, error: false })}
             value={this.state.password}
             className="form-control"
             type="password"
@@ -68,6 +76,11 @@ class Login extends Component {
             Log in
           </button>
         </form>
+        {this.state.error && (
+          <div className="error">
+            {this.state.errorMessage}
+          </div>
+        )}
         <div className="signUp">
           <a href="/#" onClick={this.makesignUp}>sign up for new user!</a>
         </div>
@@ -101,7 +114,6 @@ class Login extends Component {
                 type="password"
               ></input>
               <button style={{ marginTop: "20px" }} type="submit">
-                {" "}
                 Sign Up !
               </button>
             </form>

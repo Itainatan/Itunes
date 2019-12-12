@@ -6,7 +6,8 @@ class Itunes extends Component {
     super(props);
     this.state = {
       inputValue: "",
-      results: []
+      results: [],
+      resultsTopTen: []
     };
   }
 
@@ -19,13 +20,17 @@ class Itunes extends Component {
     const response = await axios.get(
       `https://itunes.apple.com/search?term=${this.state.inputValue}&limit=25`
     );
-    this.setState({ results: response.data.results });
+    this.setState({ results: response.data.results, resultsTopTen: [] });
+    axios.post("/api/songs/insertSong", {
+      songName: this.state.inputValue
+    });
   };
 
   buildResultItem = () => {
     return this.state.results.map(item => {
       return (
-        <div className="song"
+        <div
+          className="song"
           onClick={e =>
             this.props.history.push(`/itunes/${item.trackId}`, { item })
           }
@@ -34,6 +39,19 @@ class Itunes extends Component {
         </div>
       );
     });
+  };
+
+  buildResultTopTen = () => {
+    return this.state.resultsTopTen.map(item => {
+      return <div className="songTopTen"> Name: {item.songName} , counts of searches: {item.songCounter}</div>;
+    });
+  };
+
+  getTopTen = async e => {
+    e.preventDefault();
+    const response = await axios.get("/api/songs/top10");
+    console.log(response.data.list)
+    this.setState({ resultsTopTen: response.data.list, results: [] });
   };
 
   signOut = () => {
@@ -50,12 +68,19 @@ class Itunes extends Component {
         </div>
         <form onSubmit={this.onSubmit} style={{ margin: "100px" }}>
           <input placeholder="Enter here" onChange={this.onInputChange}></input>
-          <button type="submit" style={{ marginLeft: "30px" }}>Search Video</button>
+          <button type="submit" style={{ marginLeft: "30px" }}>
+            Search Video
+          </button>
         </form>
+        <div className="top10">
+          <button onClick={this.getTopTen}>Top 10</button>
+        </div>
         {this.state.results.length > 0 && this.buildResultItem()}
+        {this.state.resultsTopTen.length > 0 && this.buildResultTopTen()}
       </div>
     );
   }
 }
 
 export default Itunes;
+

@@ -11,10 +11,11 @@ app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
 
 const users = require("./routes/api/users");
-// Use Routes
 app.use("/api/users", users);
 
-// Connect to mongo
+const songs = require("./routes/api/songs");
+app.use("/api/songs", songs);
+
 mongoose.connect(
   keys.mongoURI,
   {

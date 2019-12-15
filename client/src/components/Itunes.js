@@ -7,23 +7,27 @@ class Itunes extends Component {
     this.state = {
       inputValue: "",
       results: [],
-      resultsTopTen: []
+      resultsTopTen: [],
+      errorInput: false
     };
   }
 
   onInputChange = e => {
-    this.setState({ inputValue: e.target.value });
+    this.setState({ inputValue: e.target.value, errorInput: false });
   };
 
   onSubmit = async e => {
     e.preventDefault();
-    const response = await axios.get(
-      `https://itunes.apple.com/search?term=${this.state.inputValue}&limit=25`
-    );
-    this.setState({ results: response.data.results, resultsTopTen: [] });
-    axios.post("/api/songs/insertSong", {
-      songName: this.state.inputValue
-    });
+    if (this.state.inputValue !== '') {
+      const response = await axios.get(
+        `https://itunes.apple.com/search?term=${this.state.inputValue}&limit=25`
+      );
+      this.setState({ results: response.data.results, resultsTopTen: [] });
+      axios.post("/api/songs/insertSong", {
+        songName: this.state.inputValue
+      });
+    }
+    else this.setState({ errorInput: true, resultsTopTen: [] });
   };
 
   buildResultItem = () => {
@@ -66,15 +70,18 @@ class Itunes extends Component {
         <div className="signUp">
           <a href="/#" onClick={this.signOut}>sign out</a>
         </div>
-        <form onSubmit={this.onSubmit} style={{ margin: "100px" }}>
+        <form onSubmit={this.onSubmit} style={{ marginLeft: "160px" }}>
           <input placeholder="Enter here" onChange={this.onInputChange}></input>
-          <button type="submit" style={{ marginLeft: "30px" }}>
+          <button type="submit" style={{ margin: "30px" }}>
             Search Video
           </button>
-        </form>
-        <div className="top10">
           <button onClick={this.getTopTen}>Top 10</button>
-        </div>
+        </form>
+        {this.state.errorInput &&
+          <div className="error">
+            please enter an input for search
+              </div>
+        }
         {this.state.results.length > 0 && this.buildResultItem()}
         {this.state.resultsTopTen.length > 0 && this.buildResultTopTen()}
       </div>

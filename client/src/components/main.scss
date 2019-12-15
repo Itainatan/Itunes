@@ -1,19 +1,17 @@
 .signUp {
-  margin: 20px;
+  margin-left: 300px;
   width: fit-content;
   color: blue;
   font-family: helvetica;
   text-decoration: none;
   text-transform: uppercase;
   cursor: pointer;
+  margin-top: 20px;
+  margin-bottom: 0px;
 }
 
 .signUp:hover {
   text-decoration: underline;
-}
-
-.signUp:active {
-  color: black;
 }
 
 .song {
@@ -24,4 +22,23 @@
   text-decoration: none;
   text-transform: uppercase;
   cursor: pointer;
+}
+
+.songTopTen {
+  padding: 5px;
+  margin: 5px;
+  border: 1px solid black;
+  font-family: helvetica;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.error {
+  color: red;
+  margin: 25px;
+}
+
+.itunes {
+  width: 300px;
+  margin-right: 200px;
 }

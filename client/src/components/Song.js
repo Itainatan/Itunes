@@ -18,10 +18,11 @@ class Song extends Component {
             src={this.state.item.previewUrl}
             height="200"
             width="300"
+            allow='autoplay'
           ></iframe>
         ) : (
-          "No prevURL found"
-        )}
+            "No prevURL found"
+          )}
       </div>
     );
   }

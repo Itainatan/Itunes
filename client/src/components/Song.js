@@ -11,18 +11,21 @@ class Song extends Component {
   render() {
     return (
       <div className="col-md-6 offset-md-3 col-sm-12">
-        <h1>{this.state.item.collectionName}</h1>
-        {this.state.item.previewUrl ? (
-          <iframe
-            title="aa"
-            src={this.state.item.previewUrl}
-            height="200"
-            width="300"
-            allow='autoplay'
-          ></iframe>
-        ) : (
-            "No prevURL found"
-          )}
+        <h1 style={{ marginTop: "15px" }}>{this.state.item.collectionName}</h1>
+        <div className="viewSong">
+          {this.state.item.previewUrl ? (
+            <iframe
+              title="aa"
+              src={this.state.item.previewUrl}
+              height="200"
+              width="300"
+              allow='autoplay'
+            ></iframe>
+          ) : (
+              "No prevURL found"
+            )}
+        </div>
+
       </div>
     );
   }

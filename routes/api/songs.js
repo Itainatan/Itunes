@@ -4,7 +4,7 @@ const router = express.Router();
 const Song = require("../../config/models/song");
 
 router.post("/insertSong", (req, res) => {
-  const songName = req.body.songName;
+  const { songName } = req.body;
   Song.findOne({ songName: songName }).then(song => {
     if (song) {
       Song.collection.updateOne(
@@ -12,10 +12,7 @@ router.post("/insertSong", (req, res) => {
         { $set: { songCounter: song.songCounter + 1 } }
       );
     } else {
-      const newSong = {
-        songCounter: 1,
-        songName: songName
-      };
+      const newSong = { songCounter: 1, songName: songName };
       Song.collection.insertOne(newSong);
     }
     res.status(200).json({ success: true });
@@ -23,11 +20,10 @@ router.post("/insertSong", (req, res) => {
 });
 
 router.get("/top10", (req, res) => {
-  Song.find({}, [], { limit: 10, sort: { songCounter: -1 } }).then(function(
-    songs
-  ) {
-    res.status(200).json({ list: songs });
-  });
+  Song.find({}, [], { limit: 10, sort: { songCounter: -1 } }).then(
+    (songs) => {
+      res.status(200).json({ list: songs });
+    });
 });
 
 module.exports = router;

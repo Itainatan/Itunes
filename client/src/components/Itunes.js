@@ -5,7 +5,7 @@ class Itunes extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      inputValue: "",
+      inputValue: null,
       results: [],
       resultsTopTen: [],
       errorInput: false
@@ -18,7 +18,7 @@ class Itunes extends Component {
 
   onSubmit = async e => {
     e.preventDefault();
-    if (this.state.inputValue !== '') {
+    if (this.state.inputValue) {
       const response = await axios.get(
         `https://itunes.apple.com/search?term=${this.state.inputValue}&limit=25`
       );
@@ -30,8 +30,8 @@ class Itunes extends Component {
     else this.setState({ errorInput: true, resultsTopTen: [] });
   };
 
-  buildResultItem = () => {
-    return this.state.results.map(item => {
+  buildResultItem = () => (
+    this.state.results.map(item => {
       return (
         <div
           className="song"
@@ -42,8 +42,8 @@ class Itunes extends Component {
           {item.collectionName}
         </div>
       );
-    });
-  };
+    })
+  )
 
   buildResultTopTen = () => {
     return this.state.resultsTopTen.map(item => {
@@ -54,7 +54,6 @@ class Itunes extends Component {
   getTopTen = async e => {
     e.preventDefault();
     const response = await axios.get("/api/songs/top10");
-    console.log(response.data.list)
     this.setState({ resultsTopTen: response.data.list, results: [] });
   };
 
@@ -66,7 +65,7 @@ class Itunes extends Component {
   render() {
     return (
       <div className="col-md-6 offset-md-3 col-sm-12">
-        <h1 style={{ marginTop: "15px" }}>Search for Songs</h1>
+        <h1>Search for Songs</h1>
         <div className="signUp">
           <a href="/#" onClick={this.signOut}>sign out</a>
         </div>

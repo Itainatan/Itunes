@@ -1,7 +1,5 @@
 {
-  "name": "nextbigthing",
   "version": "1.0.0",
-  "description": "Next big thing",
   "main": "server.js",
   "scripts": {
     "start": "node server",
@@ -11,16 +9,12 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
-  "author": "Ran Gantz and Itay natan",
-  "license": "MIT",
   "dependencies": {
     "express": "^4.17.1",
-    "mongoose": "^5.6.0",
-    "react-router-dom": "^5.1.2",
-    "socket.io": "^2.3.0"
+    "mongoose": "^5.8.9"
   },
   "devDependencies": {
-    "concurrently": "^4.1.0",
-    "nodemon": "^1.19.1"
+    "concurrently": "^4.1.2",
+    "nodemon": "^1.19.4"
   }
 }

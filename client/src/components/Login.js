@@ -54,11 +54,11 @@ class Login extends Component {
       <form onSubmit={this.handleSubmit}>
         <input
           placeholder="Enter email address"
-          onChange={e => this.setState({ email: e.target.value, error: false, errorsignUp: false })}
+          onChange={e => this.updateValue("email", e)}
         ></input>
         <input
           placeholder="Enter password"
-          onChange={e => this.setState({ password: e.target.value, error: false, errorsignUp: false })}
+          onChange={e => this.updateValue("password", e)}
           type="password"
         ></input>
         <button type="submit"> Log in </button>
@@ -78,17 +78,17 @@ class Login extends Component {
         <label> enter Email</label>
         <input
           placeholder="email"
-          onChange={e => this.setState({ emailsignUp: e.target.value, errorsignUp: false, error: false })}
+          onChange={e => this.updateValue("emailsignUp", e)}
         ></input>
         <label> enter User name</label>
         <input
           placeholder="username"
-          onChange={e => this.setState({ usersignUp: e.target.value, errorsignUp: false, error: false })}
+          onChange={e => this.updateValue("usersignUp", e)}
         ></input>
         <label> enter password</label>
         <input
           placeholder="password"
-          onChange={e => this.setState({ passwordsignUp: e.target.value, errorsignUp: false, error: false })}
+          onChange={e => this.updateValue("passwordsignUp", e)}
         ></input>
         <button type="submit"> Sign Up ! </button>
       </form>
@@ -100,7 +100,7 @@ class Login extends Component {
     </div>
   )
 
-  updateValue = (e) => this.setState()
+  updateValue = (key, e) => this.setState({ [key]: e.target.value, errorsignUp: false, error: false })
 
   render() {
     return (
@@ -109,11 +109,9 @@ class Login extends Component {
           Welcome to Itunes
         </h1>
         {this.submit()}
-
         <div className="signUp">
           <a href="/#" onClick={() => this.setState({ signUp: !this.state.signUp })}>sign up for new user!</a>
         </div>
-
         {this.state.signUp && this.signUp()}
       </div>
     );

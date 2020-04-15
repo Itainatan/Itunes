@@ -1,4 +1,4 @@
-## Ituns Site 😷
+## Itunes Site 🎶
 
 👉🏽 [Demo](https://ituns.herokuapp.com/)
 
